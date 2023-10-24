@@ -1,0 +1,9 @@
+bin/
+obj/
+packages/
+Properties/
+*.bkp
+.vs/
+.idea/
+__pycache__/
+.vscode/

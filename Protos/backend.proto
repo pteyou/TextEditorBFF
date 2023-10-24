@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package TextEditor.back;
+
+option csharp_namespace = "TextEditor.Messages.gRPC";
+
+import "google/protobuf/timestamp.proto";
+
+service CheckService {
+    rpc BackSanitiyCheck(BaseServiceInfo) returns (CheckServiceReply) {}
+}
+
+service NLPTasks {
+    rpc GenerateText(TextGenerationRequest) returns (TextGenerationReply) {}
+}
+
+message CheckServiceReply {
+    BaseServiceInfo ServiceInfo = 1;
+    bool Ok = 2;
+}
+
+message BaseServiceInfo {
+    google.protobuf.Timestamp CallDateTime = 1;
+    string ServiceName = 2;
+    bool Ok = 3;
+    string statusMessage = 4;
+    int32 RequestTimeoutInSeconds = 5;
+}
+
+message TextGenerationRequest {
+    BaseServiceInfo ServiceInfo = 1;
+    int32 RequiredExtraSize = 2;
+    string InputText = 3;
+    int32 NumReturnedSequences = 4;
+}
+
+message TextGenerationReply {
+    BaseServiceInfo ServiceInfo = 1;
+    repeated string OuptutText = 2;
+}
